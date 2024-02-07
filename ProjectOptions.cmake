@@ -4,7 +4,7 @@ include(CMakeDependentOption)
 include(CheckCXXCompilerFlag)
 
 
-macro(myproject_supports_sanitizers)
+macro(deepcraft_supports_sanitizers)
   if((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND NOT WIN32)
     set(SUPPORTS_UBSAN ON)
   else()
@@ -18,183 +18,183 @@ macro(myproject_supports_sanitizers)
   endif()
 endmacro()
 
-macro(myproject_setup_options)
-  option(myproject_ENABLE_HARDENING "Enable hardening" ON)
-  option(myproject_ENABLE_COVERAGE "Enable coverage reporting" OFF)
+macro(deepcraft_setup_options)
+  option(deepcraft_ENABLE_HARDENING "Enable hardening" ON)
+  option(deepcraft_ENABLE_COVERAGE "Enable coverage reporting" OFF)
   cmake_dependent_option(
-    myproject_ENABLE_GLOBAL_HARDENING
+    deepcraft_ENABLE_GLOBAL_HARDENING
     "Attempt to push hardening options to built dependencies"
     ON
-    myproject_ENABLE_HARDENING
+    deepcraft_ENABLE_HARDENING
     OFF)
 
-  myproject_supports_sanitizers()
+  deepcraft_supports_sanitizers()
 
-  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE)
-    option(myproject_ENABLE_IPO "Enable IPO/LTO" OFF)
-    option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
-    option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
-    option(myproject_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
-    option(myproject_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
-    option(myproject_ENABLE_CLANG_TIDY "Enable clang-tidy" OFF)
-    option(myproject_ENABLE_CPPCHECK "Enable cpp-check analysis" OFF)
-    option(myproject_ENABLE_PCH "Enable precompiled headers" OFF)
-    option(myproject_ENABLE_CACHE "Enable ccache" OFF)
+  if(NOT PROJECT_IS_TOP_LEVEL OR deepcraft_PACKAGING_MAINTAINER_MODE)
+    option(deepcraft_ENABLE_IPO "Enable IPO/LTO" OFF)
+    option(deepcraft_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
+    option(deepcraft_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
+    option(deepcraft_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" OFF)
+    option(deepcraft_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
+    option(deepcraft_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" OFF)
+    option(deepcraft_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
+    option(deepcraft_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
+    option(deepcraft_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
+    option(deepcraft_ENABLE_CLANG_TIDY "Enable clang-tidy" OFF)
+    option(deepcraft_ENABLE_CPPCHECK "Enable cpp-check analysis" OFF)
+    option(deepcraft_ENABLE_PCH "Enable precompiled headers" OFF)
+    option(deepcraft_ENABLE_CACHE "Enable ccache" OFF)
   else()
-    option(myproject_ENABLE_IPO "Enable IPO/LTO" ON)
-    option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" ON)
-    option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
-    option(myproject_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" ${SUPPORTS_ASAN})
-    option(myproject_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" ${SUPPORTS_UBSAN})
-    option(myproject_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
-    option(myproject_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
-    option(myproject_ENABLE_CLANG_TIDY "Enable clang-tidy" ON)
-    option(myproject_ENABLE_CPPCHECK "Enable cpp-check analysis" ON)
-    option(myproject_ENABLE_PCH "Enable precompiled headers" OFF)
-    option(myproject_ENABLE_CACHE "Enable ccache" ON)
+    option(deepcraft_ENABLE_IPO "Enable IPO/LTO" ON)
+    option(deepcraft_WARNINGS_AS_ERRORS "Treat Warnings As Errors" ON)
+    option(deepcraft_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
+    option(deepcraft_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" ${SUPPORTS_ASAN})
+    option(deepcraft_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
+    option(deepcraft_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" ${SUPPORTS_UBSAN})
+    option(deepcraft_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
+    option(deepcraft_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
+    option(deepcraft_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
+    option(deepcraft_ENABLE_CLANG_TIDY "Enable clang-tidy" ON)
+    option(deepcraft_ENABLE_CPPCHECK "Enable cpp-check analysis" ON)
+    option(deepcraft_ENABLE_PCH "Enable precompiled headers" OFF)
+    option(deepcraft_ENABLE_CACHE "Enable ccache" ON)
   endif()
 
   if(NOT PROJECT_IS_TOP_LEVEL)
     mark_as_advanced(
-      myproject_ENABLE_IPO
-      myproject_WARNINGS_AS_ERRORS
-      myproject_ENABLE_USER_LINKER
-      myproject_ENABLE_SANITIZER_ADDRESS
-      myproject_ENABLE_SANITIZER_LEAK
-      myproject_ENABLE_SANITIZER_UNDEFINED
-      myproject_ENABLE_SANITIZER_THREAD
-      myproject_ENABLE_SANITIZER_MEMORY
-      myproject_ENABLE_UNITY_BUILD
-      myproject_ENABLE_CLANG_TIDY
-      myproject_ENABLE_CPPCHECK
-      myproject_ENABLE_COVERAGE
-      myproject_ENABLE_PCH
-      myproject_ENABLE_CACHE)
+      deepcraft_ENABLE_IPO
+      deepcraft_WARNINGS_AS_ERRORS
+      deepcraft_ENABLE_USER_LINKER
+      deepcraft_ENABLE_SANITIZER_ADDRESS
+      deepcraft_ENABLE_SANITIZER_LEAK
+      deepcraft_ENABLE_SANITIZER_UNDEFINED
+      deepcraft_ENABLE_SANITIZER_THREAD
+      deepcraft_ENABLE_SANITIZER_MEMORY
+      deepcraft_ENABLE_UNITY_BUILD
+      deepcraft_ENABLE_CLANG_TIDY
+      deepcraft_ENABLE_CPPCHECK
+      deepcraft_ENABLE_COVERAGE
+      deepcraft_ENABLE_PCH
+      deepcraft_ENABLE_CACHE)
   endif()
 
-  myproject_check_libfuzzer_support(LIBFUZZER_SUPPORTED)
-  if(LIBFUZZER_SUPPORTED AND (myproject_ENABLE_SANITIZER_ADDRESS OR myproject_ENABLE_SANITIZER_THREAD OR myproject_ENABLE_SANITIZER_UNDEFINED))
+  deepcraft_check_libfuzzer_support(LIBFUZZER_SUPPORTED)
+  if(LIBFUZZER_SUPPORTED AND (deepcraft_ENABLE_SANITIZER_ADDRESS OR deepcraft_ENABLE_SANITIZER_THREAD OR deepcraft_ENABLE_SANITIZER_UNDEFINED))
     set(DEFAULT_FUZZER ON)
   else()
     set(DEFAULT_FUZZER OFF)
   endif()
 
-  option(myproject_BUILD_FUZZ_TESTS "Enable fuzz testing executable" ${DEFAULT_FUZZER})
+  option(deepcraft_BUILD_FUZZ_TESTS "Enable fuzz testing executable" ${DEFAULT_FUZZER})
 
 endmacro()
 
-macro(myproject_global_options)
-  if(myproject_ENABLE_IPO)
+macro(deepcraft_global_options)
+  if(deepcraft_ENABLE_IPO)
     include(cmake/InterproceduralOptimization.cmake)
-    myproject_enable_ipo()
+    deepcraft_enable_ipo()
   endif()
 
-  myproject_supports_sanitizers()
+  deepcraft_supports_sanitizers()
 
-  if(myproject_ENABLE_HARDENING AND myproject_ENABLE_GLOBAL_HARDENING)
+  if(deepcraft_ENABLE_HARDENING AND deepcraft_ENABLE_GLOBAL_HARDENING)
     include(cmake/Hardening.cmake)
     if(NOT SUPPORTS_UBSAN 
-       OR myproject_ENABLE_SANITIZER_UNDEFINED
-       OR myproject_ENABLE_SANITIZER_ADDRESS
-       OR myproject_ENABLE_SANITIZER_THREAD
-       OR myproject_ENABLE_SANITIZER_LEAK)
+       OR deepcraft_ENABLE_SANITIZER_UNDEFINED
+       OR deepcraft_ENABLE_SANITIZER_ADDRESS
+       OR deepcraft_ENABLE_SANITIZER_THREAD
+       OR deepcraft_ENABLE_SANITIZER_LEAK)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
     else()
       set(ENABLE_UBSAN_MINIMAL_RUNTIME TRUE)
     endif()
-    message("${myproject_ENABLE_HARDENING} ${ENABLE_UBSAN_MINIMAL_RUNTIME} ${myproject_ENABLE_SANITIZER_UNDEFINED}")
-    myproject_enable_hardening(myproject_options ON ${ENABLE_UBSAN_MINIMAL_RUNTIME})
+    message("${deepcraft_ENABLE_HARDENING} ${ENABLE_UBSAN_MINIMAL_RUNTIME} ${deepcraft_ENABLE_SANITIZER_UNDEFINED}")
+    deepcraft_enable_hardening(deepcraft_options ON ${ENABLE_UBSAN_MINIMAL_RUNTIME})
   endif()
 endmacro()
 
-macro(myproject_local_options)
+macro(deepcraft_local_options)
   if(PROJECT_IS_TOP_LEVEL)
     include(cmake/StandardProjectSettings.cmake)
   endif()
 
-  add_library(myproject_warnings INTERFACE)
-  add_library(myproject_options INTERFACE)
+  add_library(deepcraft_warnings INTERFACE)
+  add_library(deepcraft_options INTERFACE)
 
   include(cmake/CompilerWarnings.cmake)
-  myproject_set_project_warnings(
-    myproject_warnings
-    ${myproject_WARNINGS_AS_ERRORS}
+  deepcraft_set_project_warnings(
+    deepcraft_warnings
+    ${deepcraft_WARNINGS_AS_ERRORS}
     ""
     ""
     ""
     "")
 
-  if(myproject_ENABLE_USER_LINKER)
+  if(deepcraft_ENABLE_USER_LINKER)
     include(cmake/Linker.cmake)
-    configure_linker(myproject_options)
+    configure_linker(deepcraft_options)
   endif()
 
   include(cmake/Sanitizers.cmake)
-  myproject_enable_sanitizers(
-    myproject_options
-    ${myproject_ENABLE_SANITIZER_ADDRESS}
-    ${myproject_ENABLE_SANITIZER_LEAK}
-    ${myproject_ENABLE_SANITIZER_UNDEFINED}
-    ${myproject_ENABLE_SANITIZER_THREAD}
-    ${myproject_ENABLE_SANITIZER_MEMORY})
+  deepcraft_enable_sanitizers(
+    deepcraft_options
+    ${deepcraft_ENABLE_SANITIZER_ADDRESS}
+    ${deepcraft_ENABLE_SANITIZER_LEAK}
+    ${deepcraft_ENABLE_SANITIZER_UNDEFINED}
+    ${deepcraft_ENABLE_SANITIZER_THREAD}
+    ${deepcraft_ENABLE_SANITIZER_MEMORY})
 
-  set_target_properties(myproject_options PROPERTIES UNITY_BUILD ${myproject_ENABLE_UNITY_BUILD})
+  set_target_properties(deepcraft_options PROPERTIES UNITY_BUILD ${deepcraft_ENABLE_UNITY_BUILD})
 
-  if(myproject_ENABLE_PCH)
+  if(deepcraft_ENABLE_PCH)
     target_precompile_headers(
-      myproject_options
+      deepcraft_options
       INTERFACE
       <vector>
       <string>
       <utility>)
   endif()
 
-  if(myproject_ENABLE_CACHE)
+  if(deepcraft_ENABLE_CACHE)
     include(cmake/Cache.cmake)
-    myproject_enable_cache()
+    deepcraft_enable_cache()
   endif()
 
   include(cmake/StaticAnalyzers.cmake)
-  if(myproject_ENABLE_CLANG_TIDY)
-    myproject_enable_clang_tidy(myproject_options ${myproject_WARNINGS_AS_ERRORS})
+  if(deepcraft_ENABLE_CLANG_TIDY)
+    deepcraft_enable_clang_tidy(deepcraft_options ${deepcraft_WARNINGS_AS_ERRORS})
   endif()
 
-  if(myproject_ENABLE_CPPCHECK)
-    myproject_enable_cppcheck(${myproject_WARNINGS_AS_ERRORS} "" # override cppcheck options
+  if(deepcraft_ENABLE_CPPCHECK)
+    deepcraft_enable_cppcheck(${deepcraft_WARNINGS_AS_ERRORS} "" # override cppcheck options
     )
   endif()
 
-  if(myproject_ENABLE_COVERAGE)
+  if(deepcraft_ENABLE_COVERAGE)
     include(cmake/Tests.cmake)
-    myproject_enable_coverage(myproject_options)
+    deepcraft_enable_coverage(deepcraft_options)
   endif()
 
-  if(myproject_WARNINGS_AS_ERRORS)
+  if(deepcraft_WARNINGS_AS_ERRORS)
     check_cxx_compiler_flag("-Wl,--fatal-warnings" LINKER_FATAL_WARNINGS)
     if(LINKER_FATAL_WARNINGS)
       # This is not working consistently, so disabling for now
-      # target_link_options(myproject_options INTERFACE -Wl,--fatal-warnings)
+      # target_link_options(deepcraft_options INTERFACE -Wl,--fatal-warnings)
     endif()
   endif()
 
-  if(myproject_ENABLE_HARDENING AND NOT myproject_ENABLE_GLOBAL_HARDENING)
+  if(deepcraft_ENABLE_HARDENING AND NOT deepcraft_ENABLE_GLOBAL_HARDENING)
     include(cmake/Hardening.cmake)
     if(NOT SUPPORTS_UBSAN 
-       OR myproject_ENABLE_SANITIZER_UNDEFINED
-       OR myproject_ENABLE_SANITIZER_ADDRESS
-       OR myproject_ENABLE_SANITIZER_THREAD
-       OR myproject_ENABLE_SANITIZER_LEAK)
+       OR deepcraft_ENABLE_SANITIZER_UNDEFINED
+       OR deepcraft_ENABLE_SANITIZER_ADDRESS
+       OR deepcraft_ENABLE_SANITIZER_THREAD
+       OR deepcraft_ENABLE_SANITIZER_LEAK)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
     else()
       set(ENABLE_UBSAN_MINIMAL_RUNTIME TRUE)
     endif()
-    myproject_enable_hardening(myproject_options OFF ${ENABLE_UBSAN_MINIMAL_RUNTIME})
+    deepcraft_enable_hardening(deepcraft_options OFF ${ENABLE_UBSAN_MINIMAL_RUNTIME})
   endif()
 
 endmacro()
